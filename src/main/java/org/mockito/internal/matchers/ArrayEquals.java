@@ -15,28 +15,131 @@ public class ArrayEquals extends Equals {
 
     @Override
     public boolean matches(Object actual) {
+        ArrayEqualsCoverage coverage = new ArrayEqualsCoverage();
         Object wanted = getWanted();
-        if (wanted == null || actual == null) {
+        if (wanted == null) {
+            coverage.branchUsed(0);
             return super.matches(actual);
-        } else if (wanted instanceof boolean[] && actual instanceof boolean[]) {
-            return Arrays.equals((boolean[]) wanted, (boolean[]) actual);
-        } else if (wanted instanceof byte[] && actual instanceof byte[]) {
-            return Arrays.equals((byte[]) wanted, (byte[]) actual);
-        } else if (wanted instanceof char[] && actual instanceof char[]) {
-            return Arrays.equals((char[]) wanted, (char[]) actual);
-        } else if (wanted instanceof double[] && actual instanceof double[]) {
-            return Arrays.equals((double[]) wanted, (double[]) actual);
-        } else if (wanted instanceof float[] && actual instanceof float[]) {
-            return Arrays.equals((float[]) wanted, (float[]) actual);
-        } else if (wanted instanceof int[] && actual instanceof int[]) {
-            return Arrays.equals((int[]) wanted, (int[]) actual);
-        } else if (wanted instanceof long[] && actual instanceof long[]) {
-            return Arrays.equals((long[]) wanted, (long[]) actual);
-        } else if (wanted instanceof short[] && actual instanceof short[]) {
-            return Arrays.equals((short[]) wanted, (short[]) actual);
-        } else if (wanted instanceof Object[] && actual instanceof Object[]) {
-            return Arrays.equals((Object[]) wanted, (Object[]) actual);
         }
+        if (actual == null) {
+            coverage.branchUsed(1);
+            return super.matches(actual);
+        }
+        else if (wanted instanceof boolean[]){
+            coverage.branchUsed(2);
+            if (actual instanceof boolean[]) {
+                coverage.branchUsed(3);
+                if (Arrays.equals((boolean[]) wanted, (boolean[]) actual)) {
+                    coverage.branchUsed(4);
+                    return true;
+                }
+                else {
+                    coverage.branchUsed(5);
+                    return false;
+                }
+            } 
+        } else if (wanted instanceof byte[]){
+            coverage.branchUsed(6);
+           if (actual instanceof byte[]) {
+                coverage.branchUsed(7);
+                if(Arrays.equals((byte[]) wanted, (byte[]) actual)){
+                    coverage.branchUsed(8);
+                    return  true;
+                } else {
+                    coverage.branchUsed(9);
+                    return false;
+                }
+           }
+        } else if (wanted instanceof char[]){
+            coverage.branchUsed(10);
+            if (actual instanceof char[]) {
+                coverage.branchUsed(11);
+                if (Arrays.equals((char[]) wanted, (char[]) actual)){
+                    coverage.branchUsed(12);
+                    return true;
+                } else {
+                    coverage.branchUsed(13);
+                    return false;
+                }
+            }
+        } else if (wanted instanceof double[]){
+            coverage.branchUsed(14);
+            if (actual instanceof double[]) {
+                coverage.branchUsed(15);
+                if (Arrays.equals((double[]) wanted, (double[]) actual)){
+                    coverage.branchUsed(16);
+                    return true;
+                } else {
+                    coverage.branchUsed(17);
+                    return false;
+                }
+            }
+        } else if (wanted instanceof float[]) {
+            coverage.branchUsed(18);
+            if (actual instanceof float[]) {
+                coverage.branchUsed(19);
+                if (Arrays.equals((float[]) wanted, (float[]) actual)){
+                    coverage.branchUsed(20);
+                    return true;
+                } else {
+                    coverage.branchUsed(21);
+                    return false; 
+                }
+            }
+        } else if (wanted instanceof int[]) {
+            coverage.branchUsed(22);
+            if (actual instanceof int[]) {   
+                coverage.branchUsed(23);
+                if (Arrays.equals((int[]) wanted, (int[]) actual)) {
+                    coverage.branchUsed(24);
+                    return true;
+                }
+                else {
+                    coverage.branchUsed(25);
+                    return false;
+                }
+            }
+        } else if (wanted instanceof long[]) {
+            coverage.branchUsed(26);
+            if (actual instanceof long[]) {
+                coverage.branchUsed(27);
+                if (Arrays.equals((long[]) wanted, (long[]) actual)) {
+                    coverage.branchUsed(28);
+                    return true;
+                }
+                else {
+                    coverage.branchUsed(29);
+                    return false;
+                }
+            }
+        } else if (wanted instanceof short[]) {
+            coverage.branchUsed(30);
+            if (actual instanceof short[]) {
+                coverage.branchUsed(31);
+                if (Arrays.equals((short[]) wanted, (short[]) actual)) {
+                    coverage.branchUsed(32);
+                    return true;
+                }
+                else {
+                    coverage.branchUsed(33);
+                    return false;
+                }
+            }
+        } else if (wanted instanceof Object[]) {
+            coverage.branchUsed(34);
+            if (actual instanceof Object[]) {
+                coverage.branchUsed(35);
+                if (Arrays.equals((Object[]) wanted, (Object[]) actual)) {
+                    coverage.branchUsed(36);
+                    return true;
+                }
+                else {
+                    coverage.branchUsed(37);
+                    return false;
+                }
+            }
+        }
+        coverage.branchUsed(38);
         return false;
     }
 
