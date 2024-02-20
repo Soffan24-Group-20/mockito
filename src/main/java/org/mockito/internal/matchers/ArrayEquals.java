@@ -37,7 +37,7 @@ public class ArrayEquals extends Equals {
                     coverage.branchUsed(5);
                     return false;
                 }
-            } 
+            }
         } else if (wanted instanceof byte[]){
             coverage.branchUsed(6);
            if (actual instanceof byte[]) {
@@ -83,12 +83,12 @@ public class ArrayEquals extends Equals {
                     return true;
                 } else {
                     coverage.branchUsed(21);
-                    return false; 
+                    return false;
                 }
             }
         } else if (wanted instanceof int[]) {
             coverage.branchUsed(22);
-            if (actual instanceof int[]) {   
+            if (actual instanceof int[]) {
                 coverage.branchUsed(23);
                 if (Arrays.equals((int[]) wanted, (int[]) actual)) {
                     coverage.branchUsed(24);

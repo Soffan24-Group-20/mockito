@@ -2,7 +2,7 @@
  * Copyright (c) 2007 Mockito contributors
  * This program is made available under the terms of the MIT License.
  */
-package org.mockito.internal.matchers;
+package org.mockito.internal.matchers.apachecommons;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,16 +11,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-public class ArrayEqualsCoverage {
-    private final String path = "src/main/java/org/mockito/internal/matchers/ArrayEqualsCoverage.txt";
+public class EqualsBuilderCoverage {
+    private final String path = "src/main/java/org/mockito/internal/matchers/apachecommons/EqualsBuilderCoverage.txt";
 
-    public ArrayEqualsCoverage() {
+    public EqualsBuilderCoverage() {
         File file = new File(path);
         try {
             if (!file.exists()) {
                 file.createNewFile();
                 BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-                String zeros = "000000000000000000000000000000000000000";
+                String zeros = "000000000000000000";
                 writer.write(zeros + "\n");
                 writer.close();
             }

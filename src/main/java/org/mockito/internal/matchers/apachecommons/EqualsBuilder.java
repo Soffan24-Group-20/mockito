@@ -6,7 +6,6 @@ package org.mockito.internal.matchers.apachecommons;
 
 import org.mockito.internal.configuration.plugins.Plugins;
 import org.mockito.plugins.MemberAccessor;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
@@ -331,55 +330,79 @@ class EqualsBuilder {
     // -------------------------------------------------------------------------
 
     /**
-     * <p>Test if two <code>Object</code>s are equal using their
+     * <p>Test if two <code>Object</code>
      * <code>equals</code> method.</p>
-     *
      * @param lhs  the left hand object
      * @param rhs  the right hand object
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(Object lhs, Object rhs) {
-        if (!isEquals) {
+        EqualsBuilderCoverage coverage = new EqualsBuilderCoverage();
+        if (!isEquals) { //1
+            coverage.branchUsed(0);
             return this;
         }
-        if (lhs == rhs) {
+        if (lhs == rhs) { //1
+            coverage.branchUsed(1);
             return this;
         }
-        if (lhs == null || rhs == null) {
+        if (lhs == null) { //2
+            coverage.branchUsed(2);
+            this.setEquals(false);
+            return this;
+        }
+        if (rhs == null) { //2
+            coverage.branchUsed(3);
             this.setEquals(false);
             return this;
         }
         Class<?> lhsClass = lhs.getClass();
-        if (!lhsClass.isArray()) {
-            if (lhs instanceof BigDecimal && rhs instanceof BigDecimal) {
-                isEquals = (((BigDecimal) lhs).compareTo((BigDecimal) rhs) == 0);
+        if (!lhsClass.isArray()) { //1
+            coverage.branchUsed(4);
+            if (lhs instanceof BigDecimal){
+                coverage.branchUsed(5);
+                if (rhs instanceof BigDecimal) {//2
+                    coverage.branchUsed(6);
+                    isEquals = (((BigDecimal) lhs).compareTo((BigDecimal) rhs) == 0);
+            }
             } else {
+                coverage.branchUsed(7);
                 // The simple case, not an array, just test the element
                 isEquals = lhs.equals(rhs);
             }
-        } else if (lhs.getClass() != rhs.getClass()) {
+        } else if (lhs.getClass() != rhs.getClass()) {//1
+            coverage.branchUsed(8);
             // Here when we compare different dimensions, for example: a boolean[][] to a boolean[]
             this.setEquals(false);
 
             // 'Switch' on type of array, to dispatch to the correct handler
             // This handles multi dimensional arrays of the same depth
-        } else if (lhs instanceof long[]) {
+        } else if (lhs instanceof long[]) {//1
+            coverage.branchUsed(9);
             append((long[]) lhs, (long[]) rhs);
-        } else if (lhs instanceof int[]) {
+        } else if (lhs instanceof int[]) {//1
+            coverage.branchUsed(10);
             append((int[]) lhs, (int[]) rhs);
-        } else if (lhs instanceof short[]) {
+        } else if (lhs instanceof short[]) {//1
+            coverage.branchUsed(11);
             append((short[]) lhs, (short[]) rhs);
-        } else if (lhs instanceof char[]) {
+        } else if (lhs instanceof char[]) {//1
+            coverage.branchUsed(12);
             append((char[]) lhs, (char[]) rhs);
-        } else if (lhs instanceof byte[]) {
+        } else if (lhs instanceof byte[]) {//1
+            coverage.branchUsed(13);
             append((byte[]) lhs, (byte[]) rhs);
-        } else if (lhs instanceof double[]) {
+        } else if (lhs instanceof double[]) {//1
+            coverage.branchUsed(14);
             append((double[]) lhs, (double[]) rhs);
-        } else if (lhs instanceof float[]) {
+        } else if (lhs instanceof float[]) {//1
+            coverage.branchUsed(15);
             append((float[]) lhs, (float[]) rhs);
-        } else if (lhs instanceof boolean[]) {
+        } else if (lhs instanceof boolean[]) {//1
+            coverage.branchUsed(16);
             append((boolean[]) lhs, (boolean[]) rhs);
-        } else {
+        } else {//1
+            coverage.branchUsed(17);
             // Not an array of primitives
             append((Object[]) lhs, (Object[]) rhs);
         }
