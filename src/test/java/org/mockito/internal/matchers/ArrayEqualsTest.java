@@ -20,9 +20,10 @@ public class ArrayEqualsTest extends TestBase {
         assertTrue(new ArrayEquals(new int[] {1, 2}).matches(new int[] {1, 2}));
         assertTrue(new ArrayEquals(new long[] {1, 2}).matches(new long[] {1, 2}));
         assertTrue(new ArrayEquals(new short[] {1, 2}).matches(new short[] {1, 2}));
+        assertTrue(new ArrayEquals(new Integer[] {1, 2}).matches(new Integer[] {1, 2}));
         assertTrue(new ArrayEquals(new Object[] {"1"}).matches(new Object[] {"1"}));
     }
-
+    
     @Test
     public void shouldArraysMatchTypesWhenNotEqual() throws Exception {
         assertFalse(new ArrayEquals(new boolean[] {true, false}).matches(new boolean[] {false, false}));
@@ -33,6 +34,7 @@ public class ArrayEqualsTest extends TestBase {
         assertFalse(new ArrayEquals(new int[] {1, 2}).matches(new int[] {3, 2}));
         assertFalse(new ArrayEquals(new long[] {1, 2}).matches(new long[] {3, 2}));
         assertFalse(new ArrayEquals(new short[] {1, 2}).matches(new short[] {3, 2}));
+        assertFalse(new ArrayEquals(new Integer[] {1, 2}).matches(new Integer[] {3, 2}));
         assertFalse(new ArrayEquals(new Object[] {"1"}).matches(new Object[] {"2"}));
     }
 
