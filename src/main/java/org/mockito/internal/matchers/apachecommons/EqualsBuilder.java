@@ -331,9 +331,8 @@ class EqualsBuilder {
     // -------------------------------------------------------------------------
 
     /**
-     * <p>Test if two <code>Object</code>s are equal using their
+     * <p>Test if two <code>Object</code>
      * <code>equals</code> method.</p>
-     *
      * @param lhs  the left hand object
      * @param rhs  the right hand object
      * @return EqualsBuilder - used to chain calls.
@@ -609,11 +608,11 @@ class EqualsBuilder {
         if (!isEquals) {
             return this;
         }
-        if (lhs == rhs) {
-            return this;
-        }
         if (lhs == null || rhs == null) {
             this.setEquals(false);
+            return this;
+        }
+        if (lhs == rhs) {
             return this;
         }
         if (lhs.length != rhs.length) {
@@ -643,7 +642,11 @@ class EqualsBuilder {
         if (lhs == rhs) {
             return this;
         }
-        if (lhs == null || rhs == null) {
+        if (lhs == null) {
+            this.setEquals(false);
+            return this;
+        }
+        if (rhs == null) {
             this.setEquals(false);
             return this;
         }
@@ -671,11 +674,11 @@ class EqualsBuilder {
         if (!isEquals) {
             return this;
         }
-        if (lhs == rhs) {
-            return this;
-        }
         if (lhs == null || rhs == null) {
             this.setEquals(false);
+            return this;
+        }
+        if (lhs == rhs) {
             return this;
         }
         if (lhs.length != rhs.length) {
@@ -702,11 +705,11 @@ class EqualsBuilder {
         if (!isEquals) {
             return this;
         }
-        if (lhs == rhs) {
-            return this;
-        }
         if (lhs == null || rhs == null) {
             this.setEquals(false);
+            return this;
+        }
+        if (lhs == rhs) {
             return this;
         }
         if (lhs.length != rhs.length) {
@@ -733,15 +736,15 @@ class EqualsBuilder {
         if (!isEquals) {
             return this;
         }
-        if (lhs == rhs) {
-            return this;
-        }
         if (lhs == null || rhs == null) {
             this.setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
             this.setEquals(false);
+            return this;
+        }
+        if (lhs == rhs) {
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
