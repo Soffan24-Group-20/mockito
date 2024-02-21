@@ -23,7 +23,7 @@ public class ArrayEqualsTest extends TestBase {
         assertTrue(new ArrayEquals(new Integer[] {1, 2}).matches(new Integer[] {1, 2}));
         assertTrue(new ArrayEquals(new Object[] {"1"}).matches(new Object[] {"1"}));
     }
-    
+
     @Test
     public void shouldArraysMatchTypesWhenNotEqual() throws Exception {
         assertFalse(new ArrayEquals(new boolean[] {true, false}).matches(new boolean[] {false, false}));
