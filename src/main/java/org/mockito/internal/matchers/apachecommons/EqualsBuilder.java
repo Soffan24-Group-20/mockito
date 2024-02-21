@@ -674,7 +674,7 @@ class EqualsBuilder {
         if (!isEquals) {
             return this;
         }
-        if (lhs == null || rhs == null){
+        if (lhs == null || rhs == null) {
             this.setEquals(false);
             return this;
         }
@@ -736,7 +736,7 @@ class EqualsBuilder {
         if (!isEquals) {
             return this;
         }
-        if (lhs == null || rhs == null){
+        if (lhs == null || rhs == null) {
             this.setEquals(false);
             return this;
         }
