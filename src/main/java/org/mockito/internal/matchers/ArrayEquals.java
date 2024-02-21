@@ -18,7 +18,7 @@ public class ArrayEquals extends Equals {
         Object wanted = getWanted();
         if (wanted == null || actual == null) {
             return super.matches(actual);
-        } else if (wanted.getClass() == actual.getClass()) {
+        } else if (wanted.getClass() == actual.getClass() && wanted.getClass().isArray()) {
             return Arrays.equals(createObjectArray(wanted), createObjectArray(actual));
         }
 

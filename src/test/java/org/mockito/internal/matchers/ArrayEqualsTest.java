@@ -54,6 +54,8 @@ public class ArrayEqualsTest extends TestBase {
     @Test
     public void shouldArrayMatchWhenNotArray() throws Exception {
         assertFalse(new ArrayEquals(new int[] {1, 2}).matches(100));
+        assertFalse(new ArrayEquals(100).matches(100));
+        assertFalse(new ArrayEquals(100).matches(103));
     }
 
     @Test
