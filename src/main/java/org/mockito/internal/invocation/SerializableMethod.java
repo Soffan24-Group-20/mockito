@@ -102,37 +102,33 @@ public class SerializableMethod implements Serializable, MockitoMethod {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+
         SerializableMethod other = (SerializableMethod) obj;
-        if (declaringClass == null) {
-            if (other.declaringClass != null) {
-                return false;
-            }
-        } else if (!declaringClass.equals(other.declaringClass)) {
+
+        if (!areClassesEqual(declaringClass, other.declaringClass) ||
+            !areStringsEqual(methodName, other.methodName) ||
+            !areArraysEqual(parameterTypes, other.parameterTypes) ||
+            !areClassesEqual(returnType, other.returnType)) {
             return false;
         }
-        if (methodName == null) {
-            if (other.methodName != null) {
-                return false;
-            }
-        } else if (!methodName.equals(other.methodName)) {
-            return false;
-        }
-        if (!Arrays.equals(parameterTypes, other.parameterTypes)) {
-            return false;
-        }
-        if (returnType == null) {
-            if (other.returnType != null) {
-                return false;
-            }
-        } else if (!returnType.equals(other.returnType)) {
-            return false;
-        }
+
         return true;
+    }
+
+    private boolean areClassesEqual(Class<?> class1, Class<?> class2) {
+        return (class1 == null && class2 == null) ||
+            (class1 != null && class1.equals(class2));
+    }
+
+    private boolean areStringsEqual(String str1, String str2) {
+        return (str1 == null && str2 == null) ||
+            (str1 != null && str1.equals(str2));
+    }
+
+    private boolean areArraysEqual(Object[] arr1, Object[] arr2) {
+        return Arrays.equals(arr1, arr2);
     }
 }
