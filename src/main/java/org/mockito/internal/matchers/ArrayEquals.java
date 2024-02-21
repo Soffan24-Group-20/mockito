@@ -21,7 +21,7 @@ public class ArrayEquals extends Equals {
         } else if (wanted.getClass() == actual.getClass()) {
             return Arrays.equals(createObjectArray(wanted), createObjectArray(actual));
         }
-        
+
         return false;
     }
 
