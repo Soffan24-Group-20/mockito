@@ -71,4 +71,34 @@ public class SerializableMethodTest extends TestBase {
 
     // TODO: add tests for generated equals() method
 
+    @Test
+    public void shouldNotBeEqualifObjIsNull() throws Exception {
+        assertFalse(method.equals(null));
+    }
+
+    @Test
+    public void shouldNotBeEqualForMethodFromOtherClass() throws Exception {
+        Method otherMethod = Integer.class.getMethod("parseInt", String.class);
+        assertFalse(method.equals(otherMethod));
+    }
+
+    @Test
+    public void shouldNotBeEqualForDifferentMethodFromSameClass() throws Exception {
+        Method toStrMethod = String.class.getMethod("toString", args);
+        method = new SerializableMethod(toStrMethod);
+        Method toUpperMethod = String.class.getMethod("toUpperCase");
+        SerializableMethod otherMethod = new SerializableMethod(toUpperMethod);
+        assertFalse(method.equals(otherMethod));
+    }
+
+    @Test
+    public void shouldNotBeEqualForDifferentParams() throws Exception{
+        // there are no more than one toString method in Java, hence valueFor
+        // method was chosen instead because of many overloaded methods of it.
+        Method valueOfMethod = Integer.class.getMethod("valueOf", int.class);
+        method = new SerializableMethod(valueOfMethod);
+        Method otherValueOfMethod = Integer.class.getMethod("valueOf", String.class);
+        SerializableMethod otherMethod = new SerializableMethod(otherValueOfMethod);
+        assertFalse(method.equals(otherMethod));
+    }
 }
