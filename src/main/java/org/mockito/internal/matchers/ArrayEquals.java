@@ -15,15 +15,13 @@ public class ArrayEquals extends Equals {
 
     @Override
     public boolean matches(Object actual) {
-        ArrayEqualsCoverage coverage = new ArrayEqualsCoverage();
         Object wanted = getWanted();
-        if (wanted == null) {
-            coverage.branchUsed(0);
+        if (wanted == null || actual == null) {
             return super.matches(actual);
-
         } else if (wanted.getClass() == actual.getClass()) {
             return Arrays.equals(createObjectArray(wanted), createObjectArray(actual));
         }
+        
         return false;
     }
 
