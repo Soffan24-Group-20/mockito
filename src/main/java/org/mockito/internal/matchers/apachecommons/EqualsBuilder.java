@@ -337,7 +337,7 @@ class EqualsBuilder {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(Object lhs, Object rhs) {
-        EqualsBuilderCoverage coverage = new EqualsBuilderCoverage();
+        EqualsBuilderAppendObjectCoverage coverage = new EqualsBuilderAppendObjectCoverage();
         if (!isEquals) { //1
             coverage.branchUsed(0);
             return this;
@@ -629,23 +629,34 @@ class EqualsBuilder {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(short[] lhs, short[] rhs) {
+        EqualsBuilderAppendArrayCoverage coverage = new EqualsBuilderAppendArrayCoverage();
         if (!isEquals) {
+            coverage.branchUsed(0);
             return this;
         }
-        if (lhs == rhs) {
-            return this;
-        }
-        if (lhs == null || rhs == null) {
+        if (lhs == null) {
+            coverage.branchUsed(2);
             this.setEquals(false);
             return this;
         }
+        if (rhs == null) {
+            coverage.branchUsed(3);
+            this.setEquals(false);
+            return this;
+        }
+        if (lhs == rhs) {
+            coverage.branchUsed(1);
+            return this;
+        }
         if (lhs.length != rhs.length) {
+            coverage.branchUsed(4);
             this.setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
             append(lhs[i], rhs[i]);
         }
+        coverage.branchUsed(5);
         return this;
     }
 
@@ -666,7 +677,11 @@ class EqualsBuilder {
         if (lhs == rhs) {
             return this;
         }
-        if (lhs == null || rhs == null) {
+        if (lhs == null) {
+            this.setEquals(false);
+            return this;
+        }
+        if (rhs == null) {
             this.setEquals(false);
             return this;
         }
@@ -691,23 +706,34 @@ class EqualsBuilder {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(byte[] lhs, byte[] rhs) {
+        EqualsBuilderAppendArrayCoverage coverage = new EqualsBuilderAppendArrayCoverage();
         if (!isEquals) {
+            coverage.branchUsed(6);
             return this;
         }
-        if (lhs == rhs) {
-            return this;
-        }
-        if (lhs == null || rhs == null) {
+        if (lhs == null){
+            coverage.branchUsed(8);
             this.setEquals(false);
             return this;
         }
+        if (rhs == null) {
+            coverage.branchUsed(9);
+            this.setEquals(false);
+            return this;
+        }
+        if (lhs == rhs) {
+            coverage.branchUsed(7);
+            return this;
+        }
         if (lhs.length != rhs.length) {
+            coverage.branchUsed(10);
             this.setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
             append(lhs[i], rhs[i]);
         }
+        coverage.branchUsed(11);
         return this;
     }
 
@@ -722,23 +748,34 @@ class EqualsBuilder {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(double[] lhs, double[] rhs) {
+        EqualsBuilderAppendArrayCoverage coverage = new EqualsBuilderAppendArrayCoverage();
         if (!isEquals) {
+            coverage.branchUsed(12);
             return this;
         }
-        if (lhs == rhs) {
-            return this;
-        }
-        if (lhs == null || rhs == null) {
+        if (lhs == null){
+            coverage.branchUsed(14);
             this.setEquals(false);
             return this;
         }
+        if (rhs == null) {
+            coverage.branchUsed(15);
+            this.setEquals(false);
+            return this;
+        }
+        if (lhs == rhs) {
+            coverage.branchUsed(13);
+            return this;
+        }
         if (lhs.length != rhs.length) {
+            coverage.branchUsed(16);
             this.setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
             append(lhs[i], rhs[i]);
         }
+        coverage.branchUsed(17);
         return this;
     }
 
@@ -753,23 +790,34 @@ class EqualsBuilder {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(float[] lhs, float[] rhs) {
+        EqualsBuilderAppendArrayCoverage coverage = new EqualsBuilderAppendArrayCoverage();
         if (!isEquals) {
+            coverage.branchUsed(18);
             return this;
         }
-        if (lhs == rhs) {
+        if (lhs == null){
+            coverage.branchUsed(19);
+            this.setEquals(false);
             return this;
         }
-        if (lhs == null || rhs == null) {
+        if (rhs == null) {
+            coverage.branchUsed(20);
             this.setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
+            coverage.branchUsed(21);
             this.setEquals(false);
+            return this;
+        }
+        if (lhs == rhs) {
+            coverage.branchUsed(22);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
             append(lhs[i], rhs[i]);
         }
+        coverage.branchUsed(23);
         return this;
     }
 
