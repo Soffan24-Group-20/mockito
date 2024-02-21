@@ -329,8 +329,7 @@ class EqualsBuilder {
     }
 
     // -------------------------------------------------------------------------
-
-    /**
+        /**
      * <p>Test if two <code>Object</code>
      * <code>equals</code> method.</p>
      * @param lhs  the left hand object
@@ -338,31 +337,75 @@ class EqualsBuilder {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(Object lhs, Object rhs) {
-        if (!isEquals) {
+        if (!basicChecksPass(lhs, rhs)) {
             return this;
         }
-        if (lhs == rhs) {
-            return this;
+
+        if (!lhs.getClass().isArray()) {
+            compareNonArrayElements(lhs, rhs);
+        } else {
+            compareArrayElements(lhs, rhs);
+        }
+
+        return this;
+    }
+
+    /**
+     * Does the basic checkos of lhs and rhs
+     * @param lhs  the left hand object
+     * @param rhs  the right hand object
+     * @return
+     */
+    private boolean basicChecksPass(Object lhs, Object rhs) {
+        if (!isEquals || lhs == rhs) {
+            return false;
         }
         if (lhs == null || rhs == null) {
             this.setEquals(false);
-            return this;
+            return false;
         }
-        Class<?> lhsClass = lhs.getClass();
-        if (!lhsClass.isArray()) {
-            if (lhs instanceof BigDecimal && rhs instanceof BigDecimal) {
-                isEquals = (((BigDecimal) lhs).compareTo((BigDecimal) rhs) == 0);
-            } else {
-                // The simple case, not an array, just test the element
-                isEquals = lhs.equals(rhs);
-            }
-        } else if (lhs.getClass() != rhs.getClass()) {
-            // Here when we compare different dimensions, for example: a boolean[][] to a boolean[]
-            this.setEquals(false);
+        return true;
+    }
 
-            // 'Switch' on type of array, to dispatch to the correct handler
-            // This handles multi dimensional arrays of the same depth
-        } else if (lhs instanceof long[]) {
+    /**
+     * Compares lhs and rhs as NonArrayElements
+     * @param lhs  the left hand object
+     * @param rhs  the right hand object
+     */
+    private void compareNonArrayElements(Object lhs, Object rhs) {
+        if (lhs instanceof BigDecimal && rhs instanceof BigDecimal) {
+            isEquals = (((BigDecimal) lhs).compareTo((BigDecimal) rhs) == 0);
+        } else {
+            // The simple case, not an array, just test the element
+            isEquals = lhs.equals(rhs);
+        }
+    }
+
+    /**
+     * Comparing lhs and rhs as Array elements.
+     * Here when we compare different dimensions, for example: a boolean[][] to a boolean[]
+     * @param lhs  the left hand object
+     * @param rhs  the right hand object
+     */
+    private void compareArrayElements(Object lhs, Object rhs) {
+        if (lhs.getClass() != rhs.getClass()) {
+            // Different dimensions
+            this.setEquals(false);
+        } else {
+            // Same dimensions
+            dynamicAppend(lhs, rhs);
+        }
+    }
+
+    /**
+     * Dynamic append
+     *  To reduce cyclomatic complexity of append(Object[], Object[])
+     *  This handles multi dimensional arrays of the same depth
+     * @param lhs  the left hand object
+     * @param rhs the right hand object
+     */
+    public void dynamicAppend(Object lhs, Object rhs) {
+        if (lhs instanceof long[]) {
             append((long[]) lhs, (long[]) rhs);
         } else if (lhs instanceof int[]) {
             append((int[]) lhs, (int[]) rhs);
@@ -379,10 +422,9 @@ class EqualsBuilder {
         } else if (lhs instanceof boolean[]) {
             append((boolean[]) lhs, (boolean[]) rhs);
         } else {
-            // Not an array of primitives
+            // Handle cases where lhs is not an array of a primitive type
             append((Object[]) lhs, (Object[]) rhs);
         }
-        return this;
     }
 
     /**
