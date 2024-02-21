@@ -6,6 +6,7 @@ package org.mockito.internal.matchers.apachecommons;
 
 import org.mockito.internal.configuration.plugins.Plugins;
 import org.mockito.plugins.MemberAccessor;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
@@ -348,8 +349,8 @@ class EqualsBuilder {
             return this;
         }
         Class<?> lhsClass = lhs.getClass();
-        if (!lhsClass.isArray()) { //1
-            if (lhs instanceof BigDecimal  && rhs instanceof BigDecimal){
+        if (!lhsClass.isArray()) {
+            if (lhs instanceof BigDecimal && rhs instanceof BigDecimal) {
                 isEquals = (((BigDecimal) lhs).compareTo((BigDecimal) rhs) == 0);
             } else {
                 // The simple case, not an array, just test the element
