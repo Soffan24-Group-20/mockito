@@ -540,15 +540,22 @@ public class EqualsBuilderTest extends TestBase {
         short[] obj2 = new short[2];
         obj2[0] = 5;
         obj2[1] = 6;
+        short[] obj3 = new short[3];
+        obj3[0] = 5;
+        obj3[1] = 6;
+        obj3[2] = 8;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        assertTrue(!new EqualsBuilder().append(obj1, obj3).isEquals());
         obj1[1] = 7;
         assertTrue(!new EqualsBuilder().append(obj1, obj2).isEquals());
-
         obj2 = null;
         assertTrue(!new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1 = null;
-        assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        assertTrue(!new EqualsBuilder().append(obj1, obj2).isEquals());
+        EqualsBuilder equalsBuilder = new EqualsBuilder();
+        equalsBuilder.setEquals(false);
+        assertFalse(equalsBuilder.append(obj1, obj2).isEquals());
     }
 
     @Test
@@ -578,15 +585,22 @@ public class EqualsBuilderTest extends TestBase {
         byte[] obj2 = new byte[2];
         obj2[0] = 5;
         obj2[1] = 6;
+        byte[] obj3 = new byte[3];
+        obj3[0] = 5;
+        obj3[1] = 6;
+        obj3[2] = 8;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        assertTrue(!new EqualsBuilder().append(obj1, obj3).isEquals());
         obj1[1] = 7;
         assertTrue(!new EqualsBuilder().append(obj1, obj2).isEquals());
-
         obj2 = null;
         assertTrue(!new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1 = null;
-        assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        assertTrue(!new EqualsBuilder().append(obj1, obj2).isEquals());
+        EqualsBuilder equalsBuilder = new EqualsBuilder();
+        equalsBuilder.setEquals(false);
+        assertFalse(equalsBuilder.append(obj1, obj2).isEquals());
     }
 
     @Test
@@ -597,15 +611,22 @@ public class EqualsBuilderTest extends TestBase {
         double[] obj2 = new double[2];
         obj2[0] = 5;
         obj2[1] = 6;
+        double[] obj3 = new double[3];
+        obj3[0] = 5;
+        obj3[1] = 6;
+        obj3[2] = 8;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        assertTrue(!new EqualsBuilder().append(obj1, obj3).isEquals());
         obj1[1] = 7;
         assertTrue(!new EqualsBuilder().append(obj1, obj2).isEquals());
-
         obj2 = null;
         assertTrue(!new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1 = null;
-        assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        assertTrue(!new EqualsBuilder().append(obj1, obj2).isEquals());
+        EqualsBuilder equalsBuilder = new EqualsBuilder();
+        equalsBuilder.setEquals(false);
+        assertFalse(equalsBuilder.append(obj1, obj2).isEquals());
     }
 
     @Test
@@ -616,15 +637,22 @@ public class EqualsBuilderTest extends TestBase {
         float[] obj2 = new float[2];
         obj2[0] = 5;
         obj2[1] = 6;
+        float[] obj3 = new float[3];
+        obj3[0] = 5;
+        obj3[1] = 6;
+        obj3[2] = 8;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        assertTrue(!new EqualsBuilder().append(obj1, obj3).isEquals());
         obj1[1] = 7;
         assertTrue(!new EqualsBuilder().append(obj1, obj2).isEquals());
-
         obj2 = null;
         assertTrue(!new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1 = null;
-        assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        assertTrue(!new EqualsBuilder().append(obj1, obj2).isEquals());
+        EqualsBuilder equalsBuilder = new EqualsBuilder();
+        equalsBuilder.setEquals(false);
+        assertFalse(equalsBuilder.append(obj1, obj2).isEquals());
     }
 
     @Test
