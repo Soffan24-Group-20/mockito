@@ -4,7 +4,7 @@
  */
 package org.mockito.internal.handler;
 
-import static org.mockito.internal.matchers.Equality.areEqual;
+import static org.mockito.internal.matchers.Equality.*;
 
 import org.mockito.invocation.DescribedInvocation;
 import org.mockito.invocation.Invocation;
@@ -73,7 +73,9 @@ public class NotifiedMethodInvocationReport implements MethodInvocationReport {
 
     @Override
     public boolean equals(Object o) {
+        NotifiedMethodInvocationReportCoverage coverage = new NotifiedMethodInvocationReportCoverage();
         if (this == o) {
+            coverage.branchUsed(0);
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
