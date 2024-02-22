@@ -158,17 +158,85 @@ public class EqualsBuilderTest extends TestBase {
     public void testReflectionEquals() {
         TestObject o1 = new TestObject(4);
         TestObject o2 = new TestObject(5);
+        //both same
         assertTrue(EqualsBuilder.reflectionEquals(o1, o1));
+        //both different
         assertTrue(!EqualsBuilder.reflectionEquals(o1, o2));
         o2.setA(4);
+        //both same
         assertTrue(EqualsBuilder.reflectionEquals(o1, o2));
 
         assertTrue(!EqualsBuilder.reflectionEquals(o1, this));
 
+        //either one is null
         assertTrue(!EqualsBuilder.reflectionEquals(o1, null));
         assertTrue(!EqualsBuilder.reflectionEquals(null, o2));
         assertTrue(EqualsBuilder.reflectionEquals((Object) null, (Object) null));
     }
+    @Test
+    public void testReflectionEqualsSubclass() {
+        // Case 1: lhsClass is the subclass
+        TestObject o1 = new TestObject(4);
+        TestSubObject o2 = new TestSubObject(4, 5);
+
+        // Both objects have the same values but different classes
+        assertTrue(!EqualsBuilder.reflectionEquals(o1, o2, true));
+
+        // Case 2: rhsClass is the subclass
+        TestSubObject o3 = new TestSubObject(4, 5);
+        TestObject o4 = new TestObject(4);
+
+        // Both objects have the same values but different classes
+        assertTrue(!EqualsBuilder.reflectionEquals(o3, o4, true));
+    }
+    @Test
+    public void testReflectionEqualsWithSuperclass() {
+        // Create objects of different classes but related through inheritance
+        TestObject o1 = new TestObject(4);
+        TestSubObject o2 = new TestSubObject(4, 5);
+
+        // Specify the superclass to reflect up to (inclusive)
+        Class<?> superclass = TestObject.class;
+
+        // Reflection equals should return true as objects are related through inheritance
+        assertTrue(!EqualsBuilder.reflectionEquals(o1, o2, true, superclass, null));
+    }
+    @Test
+    public void testReflectionEqualsWithExcludedFields() {
+        // Create two objects with different values
+        TestObjectWithMultipleFields obj1 = new TestObjectWithMultipleFields(1, 2, 3);
+        TestObjectWithMultipleFields obj2 = new TestObjectWithMultipleFields(1, 3, 4);
+    
+        // Specify that the 'one' field should be excluded from comparison
+        String[] excludedFields = {"one"};
+    
+        // Reflection equals should return true as the differing field 'one' is excluded
+        assertTrue(!EqualsBuilder.reflectionEquals(obj1, obj2, true, null, excludedFields));
+    }
+
+    @Test
+    public void testReflectionEqualsWithSuperclassNotNull() {
+        // Create objects of different classes but related through inheritance
+        TestObject o1 = new TestObject(4);
+        TestSubObject o2 = new TestSubObject(4, 5);
+    
+        // Specify the superclass to reflect up to (inclusive)
+        Class<?> superclass = TestObject.class;
+    
+        // Reflection equals should return true as objects are related through inheritance
+        assertTrue(!EqualsBuilder.reflectionEquals(o1, o2, true, superclass, null));
+    }
+    @Test
+    public void testReflectionEqualsWithSuperclassNull() {
+        // Create objects of different classes but related through inheritance
+        TestObject o1 = new TestObject(4);
+        TestSubObject o2 = new TestSubObject(4, 5);
+    
+        // Reflection equals should return true as objects are related through inheritance
+        assertTrue(!EqualsBuilder.reflectionEquals(o1, o2, true, null, null));
+    }
+    
+
 
     @Test
     public void testReflectionHierarchyEquals() {
@@ -205,6 +273,7 @@ public class EqualsBuilderTest extends TestBase {
         TestSubObject tso1bis = new TestSubObject(1, 4);
         TestSubObject tso1ter = new TestSubObject(1, 4);
         TestSubObject tso2 = new TestSubObject(2, 5);
+        
 
         testReflectionEqualsEquivalenceRelationship(
                 to1, to1Bis, to1Ter, to2, new TestObject(), testTransients);
@@ -284,6 +353,8 @@ public class EqualsBuilderTest extends TestBase {
         assertTrue(!EqualsBuilder.reflectionEquals(tso1, this));
     }
 
+    
+
     /**
      * Equivalence relationship tests inspired by "Effective Java":
      * <ul>
@@ -342,6 +413,33 @@ public class EqualsBuilderTest extends TestBase {
         assertTrue(!EqualsBuilder.reflectionEquals(null, to, testTransients));
         assertTrue(!EqualsBuilder.reflectionEquals(null, to2, testTransients));
         assertTrue(EqualsBuilder.reflectionEquals((Object) null, (Object) null, testTransients));
+    }
+
+    @Test
+    public void testReflectionEqualsExcludeFields() throws Exception {
+        TestObjectWithMultipleFields x1 = new TestObjectWithMultipleFields(1, 2, 3);
+        TestObjectWithMultipleFields x2 = new TestObjectWithMultipleFields(1, 3, 4);
+
+        // not equal when including all fields
+        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2));
+
+        // doesn't barf on null, empty array, or non-existent field, but still tests as not equal
+        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, (String[]) null));
+        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, new String[] {}));
+        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, new String[] {"xxx"}));
+
+        // not equal if only one of the differing fields excluded
+        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, new String[] {"two"}));
+        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, new String[] {"three"}));
+
+        // equal if both differing fields excluded
+        assertTrue(EqualsBuilder.reflectionEquals(x1, x2, new String[] {"two", "three"}));
+
+        // still equal as long as both differing fields are among excluded
+        assertTrue(EqualsBuilder.reflectionEquals(x1, x2, new String[] {"one", "two", "three"}));
+        assertTrue(
+                EqualsBuilder.reflectionEquals(
+                        x1, x2, new String[] {"one", "two", "three", "xxx"}));
     }
 
     @Test
@@ -1074,33 +1172,6 @@ public class EqualsBuilderTest extends TestBase {
         // causes an NPE in 2.0 according to:
         // https://issues.apache.org/jira/browse/LANG-42
         new EqualsBuilder().append(x1, x2);
-    }
-
-    @Test
-    public void testReflectionEqualsExcludeFields() throws Exception {
-        TestObjectWithMultipleFields x1 = new TestObjectWithMultipleFields(1, 2, 3);
-        TestObjectWithMultipleFields x2 = new TestObjectWithMultipleFields(1, 3, 4);
-
-        // not equal when including all fields
-        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2));
-
-        // doesn't barf on null, empty array, or non-existent field, but still tests as not equal
-        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, (String[]) null));
-        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, new String[] {}));
-        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, new String[] {"xxx"}));
-
-        // not equal if only one of the differing fields excluded
-        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, new String[] {"two"}));
-        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, new String[] {"three"}));
-
-        // equal if both differing fields excluded
-        assertTrue(EqualsBuilder.reflectionEquals(x1, x2, new String[] {"two", "three"}));
-
-        // still equal as long as both differing fields are among excluded
-        assertTrue(EqualsBuilder.reflectionEquals(x1, x2, new String[] {"one", "two", "three"}));
-        assertTrue(
-                EqualsBuilder.reflectionEquals(
-                        x1, x2, new String[] {"one", "two", "three", "xxx"}));
     }
 
     @SuppressWarnings("unused")

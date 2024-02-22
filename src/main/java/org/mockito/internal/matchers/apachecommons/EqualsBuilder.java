@@ -4,15 +4,15 @@
  */
 package org.mockito.internal.matchers.apachecommons;
 
-import org.mockito.internal.configuration.plugins.Plugins;
-import org.mockito.plugins.MemberAccessor;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import org.mockito.internal.configuration.plugins.Plugins;
+import org.mockito.plugins.MemberAccessor;
 
 // Class comes from Apache Commons Lang, added some tiny changes
 /**
@@ -226,10 +226,13 @@ class EqualsBuilder {
             boolean testTransients,
             Class<?> reflectUpToClass,
             String[] excludeFields) {
+        EqualsBuilderCoverage coverage = new EqualsBuilderCoverage();
         if (lhs == rhs) {
+            coverage.branchUsed(0);
             return true;
         }
         if (lhs == null || rhs == null) {
+            coverage.branchUsed(1);
             return false;
         }
         // Find the leaf class since there may be transients in the leaf
@@ -240,12 +243,15 @@ class EqualsBuilder {
         Class<?> rhsClass = rhs.getClass();
         Class<?> testClass;
         if (lhsClass.isInstance(rhs)) {
+            coverage.branchUsed(2);
             testClass = lhsClass;
             if (!rhsClass.isInstance(lhs)) {
                 // rhsClass is a subclass of lhsClass
+                coverage.branchUsed(3);
                 testClass = rhsClass;
             }
         } else if (rhsClass.isInstance(lhs)) {
+            coverage.branchUsed(4);
             testClass = rhsClass;
             if (!lhsClass.isInstance(rhs)) {
                 // lhsClass is a subclass of rhsClass
@@ -257,12 +263,12 @@ class EqualsBuilder {
         }
         EqualsBuilder equalsBuilder = new EqualsBuilder();
         if (reflectionAppend(lhs, rhs, testClass, equalsBuilder, testTransients, excludeFields)) {
+            coverage.branchUsed(6);
             return false;
         }
         while (testClass.getSuperclass() != null && testClass != reflectUpToClass) {
             testClass = testClass.getSuperclass();
-            if (reflectionAppend(
-                    lhs, rhs, testClass, equalsBuilder, testTransients, excludeFields)) {
+            if (reflectionAppend(lhs, rhs, testClass, equalsBuilder, testTransients, excludeFields)) {
                 return false;
             }
         }

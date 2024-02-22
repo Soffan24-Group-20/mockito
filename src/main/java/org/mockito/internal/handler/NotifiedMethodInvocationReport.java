@@ -4,7 +4,7 @@
  */
 package org.mockito.internal.handler;
 
-import static org.mockito.internal.matchers.Equality.areEqual;
+import static org.mockito.internal.matchers.Equality.*;
 
 import org.mockito.invocation.DescribedInvocation;
 import org.mockito.invocation.Invocation;
