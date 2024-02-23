@@ -43,6 +43,7 @@ public class NotifiedMethodInvocationReportTest {
 
     @Test
     void hashCode_allNonNull_returnExpectedValue() {
+        NotifiedMethodInvocationReportCoverage coverage = new NotifiedMethodInvocationReportCoverage();
         // Arrange
         Invocation invocation = mock(Invocation.class);
         Throwable throwable = new RuntimeException("test");

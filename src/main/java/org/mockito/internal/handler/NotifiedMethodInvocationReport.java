@@ -4,7 +4,7 @@
  */
 package org.mockito.internal.handler;
 
-import static org.mockito.internal.matchers.Equality.areEqual;
+import static org.mockito.internal.matchers.Equality.*;
 
 import org.mockito.invocation.DescribedInvocation;
 import org.mockito.invocation.Invocation;
@@ -89,6 +89,8 @@ public class NotifiedMethodInvocationReport implements MethodInvocationReport {
 
     @Override
     public int hashCode() {
+        NotifiedMethodInvocationReportCoverage coverage = new NotifiedMethodInvocationReportCoverage();
+        coverage.branchUsed(0);
         int result = invocation != null ? invocation.hashCode() : 0;
         result = 31 * result + (returnedValue != null ? returnedValue.hashCode() : 0);
         result = 31 * result + (throwable != null ? throwable.hashCode() : 0);
