@@ -4,6 +4,7 @@
  */
 package org.mockito.internal.matchers;
 
+import java.util.Arrays;
 import java.util.Collection;
 import org.mockito.ArgumentMatcher;
 
@@ -16,18 +17,41 @@ public class ListAnyOrder<T> implements ArgumentMatcher<Collection<T>>{
 
     @Override
     public boolean matches(Collection<T> actual) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'matches'");
+        if (actual.size() != expected.size()) {
+            return false;
+        }
+        Object[] expectedArray = expected.toArray();
+        Arrays.sort(expectedArray);
+        Object[] actualArray = actual.toArray();
+        Arrays.sort(actualArray);
+        
+        for (int i = 0; i < expectedArray.length; i++) {
+            if (!expectedArray[i].equals(actualArray[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public <E> boolean deepMatches(Collection<E> actual) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deepMatches'");
+        if (actual.size() != expected.size()) {
+            return false;
+        }
+        Object[] expectedArray = expected.toArray();
+        Arrays.sort(expectedArray);
+        Object[] actualArray = actual.toArray();
+        Arrays.sort(actualArray);
+
+        for (int i = 0; i < expectedArray.length; i++) {
+            if (!expectedArray[i].toString().equals(actualArray[i].toString())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toString'");
+        return expected.toString();
     }    
 }
