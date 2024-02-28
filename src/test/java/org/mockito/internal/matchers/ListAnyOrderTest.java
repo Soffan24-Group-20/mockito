@@ -89,11 +89,13 @@ public class ListAnyOrderTest extends TestBase {
     public void shouldReturnToString(){
         List<Integer> list = new ArrayList<>(Arrays.asList(1,2,3));
         ListAnyOrder<Integer> listAnyOrderInteger = new ListAnyOrder<>(list);
+        String expectedIntegerString = listAnyOrderInteger.toString();
 
         List<String> listString = new ArrayList<>(Arrays.asList("1","2","3"));
         ListAnyOrder<String> listAnyOrderString = new ListAnyOrder<>(listString);
+        String expectedStringString = listAnyOrderString.toString();
 
-        assertTrue(listAnyOrderInteger.toString().equals("[1, 2]"));
-        assertTrue(listAnyOrderString.toString().equals("[\"1\", \"2\", \"3\"]"));
-    }    
+        assertTrue(expectedIntegerString.equals("[1, 2, 3]"));
+        assertTrue(expectedStringString.equals("[1, 2, 3]"));
+    }
 }
