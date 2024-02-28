@@ -22,6 +22,7 @@ public class ListAnyOrderTest extends TestBase {
         List<Integer> list1 = new ArrayList<>(Arrays.asList(1, 2));
         List<Integer> list2 = new ArrayList<>(Arrays.asList(2, 1));
         ListAnyOrder<Integer> list = new ListAnyOrder<>(list1);
+
         assertTrue(list.matches(list2));
     }
 
@@ -54,12 +55,24 @@ public class ListAnyOrderTest extends TestBase {
         
         assertTrue(listAnyOrderObject.matches(anotherTypeOfList));
     }
+
+    @Test
+    public void shouldReturnDifferentElementsButDifferentListTypes(){
+        List<Integer> list = new ArrayList<>(Arrays.asList(1, 2));
+        Deque<Integer> anotherTypeOfList = new ArrayDeque<>(2);
+        anotherTypeOfList.addFirst(3);
+        anotherTypeOfList.addLast(2);
+        ListAnyOrder<Integer> listAnyOrderObject = new ListAnyOrder<>(list);
+        
+        assertFalse(listAnyOrderObject.matches(anotherTypeOfList));
+    }
     
     @Test
     public void shouldDeepMatchSameElementsDifferentClassesDifferentOrder(){
         List<Integer> list1 = new ArrayList<>(Arrays.asList(1, 2));
         List<Short> list2 = new ArrayList<>(List.of((short) 2, (short) 1));
         ListAnyOrder<Integer> list = new ListAnyOrder<>(list1);
+
         assertTrue(list.deepMatches(list2));
     }
     
@@ -68,6 +81,7 @@ public class ListAnyOrderTest extends TestBase {
         List<Integer> list1 = new ArrayList<>(Arrays.asList(1, 2));
         List<Short> list2 = new ArrayList<>(List.of((short) 2, (short) 3));
         ListAnyOrder<Integer> list = new ListAnyOrder<>(list1);
+        
         assertFalse(list.deepMatches(list2));
     }
 
