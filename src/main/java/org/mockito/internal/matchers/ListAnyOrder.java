@@ -15,12 +15,12 @@ public class ListAnyOrder<T> implements ArgumentMatcher<Collection<T>>{
     }
 
     @Override
-    public boolean matches(Collection<T> argument) {
+    public boolean matches(Collection<T> actual) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'matches'");
     }
 
-    public boolean deepMatches(Collection<T> actual) {
+    public <E> boolean deepMatches(Collection<E> actual) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deepMatches'");
     }
