@@ -6,6 +6,8 @@ package org.mockito;
 
 import static org.mockito.internal.progress.ThreadSafeMockingProgress.mockingProgress;
 
+import java.util.Collection;
+
 import org.mockito.internal.matchers.ArrayEquals;
 import org.mockito.internal.matchers.CompareEqual;
 import org.mockito.internal.matchers.EqualsWithDelta;
@@ -14,6 +16,7 @@ import org.mockito.internal.matchers.GreaterOrEqual;
 import org.mockito.internal.matchers.GreaterThan;
 import org.mockito.internal.matchers.LessOrEqual;
 import org.mockito.internal.matchers.LessThan;
+import org.mockito.internal.matchers.ListAnyOrder;
 
 /**
  * See {@link ArgumentMatchers} for general info about matchers.
@@ -1049,6 +1052,25 @@ public final class AdditionalMatchers {
     public static float eq(float value, float delta) {
         reportMatcher(new EqualsWithDelta(value, delta));
         return 0;
+    }
+
+    /**
+     * Collection argument that is equal to the given collection, i.e. it has to
+     * have the same size, and each element has to be equal, but not
+     * in the same order. Using deepMatches means the elements can have the
+     * same value but not the same type.
+     * <p>
+     * See examples in javadoc for {@link AdditionalMatchers} class
+     *
+     * @param <T>
+     *            the type of the collection, it is passed through to prevent casts.
+     * @param value
+     *            the given collection.
+     * @return <code>null</code>.
+     */
+    public static <T> Collection<T> lao(Collection<T> value) {
+        reportMatcher(new ListAnyOrder<T>(value));
+        return null;
     }
 
     private static void reportMatcher(ArgumentMatcher<?> matcher) {

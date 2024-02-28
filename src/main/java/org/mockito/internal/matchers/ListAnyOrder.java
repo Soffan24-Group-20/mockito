@@ -17,6 +17,10 @@ public class ListAnyOrder<T> implements ArgumentMatcher<Collection<T>>{
 
     @Override
     public boolean matches(Collection<T> actual) {
+        if (actual == null || expected == null) {
+            return false;
+        }
+
         if (actual.size() != expected.size()) {
             return false;
         }
@@ -34,6 +38,10 @@ public class ListAnyOrder<T> implements ArgumentMatcher<Collection<T>>{
     }
 
     public <E> boolean deepMatches(Collection<E> actual) {
+        if (actual == null || expected == null) {
+            return false;
+        }
+
         if (actual.size() != expected.size()) {
             return false;
         }
@@ -52,6 +60,9 @@ public class ListAnyOrder<T> implements ArgumentMatcher<Collection<T>>{
 
     @Override
     public String toString() {
+        if (expected == null) {
+            return "null";
+        }
         return expected.toString();
     }    
 }

@@ -20,6 +20,7 @@ import static org.mockito.AdditionalMatchers.leq;
 import static org.mockito.AdditionalMatchers.lt;
 import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.AdditionalMatchers.or;
+import static org.mockito.AdditionalMatchers.lao;
 import static org.mockito.ArgumentMatchers.assertArg;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.nullable;
@@ -692,5 +693,40 @@ public class MatchersTest extends TestBase {
         }
 
         verify(mock).oneArg("hello");
+    }
+    // @Test
+    // public void should_array_equals_deal_with_null_array() throws Exception {
+    //     Object[] nullArray = null;
+    //     when(mock.oneArray(aryEq(nullArray))).thenReturn("null");
+
+    //     assertEquals("null", mock.oneArray(nullArray));
+
+    //     mock = mock(IMethods.class);
+
+    //     try {
+    //         verify(mock).oneArray(aryEq(nullArray));
+    //         fail();
+    //     } catch (WantedButNotInvoked e) {
+    //         assertThat(e).hasMessageContaining("oneArray(null)");
+    //     }
+    // }
+    @Test
+    public void should_list_equals_deal_with_null_list() throws Exception {
+        List<?> nullList = null;
+        when(mock.oneList(lao(nullList))).thenReturn("null");
+
+        // assertEquals("null", mock.oneList(nullList));
+        // assertTrue(mock.oneList(nullList).equals("null"));
+        // assertNull(mock.oneList(nullList));
+        // assertTrue(true);
+
+        mock = mock(IMethods.class);
+
+        try {
+            verify(mock).oneList(lao(nullList));
+            fail();
+        } catch (WantedButNotInvoked e) {
+            assertThat(e).hasMessageContaining("oneList(null)");
+        }
     }
 }

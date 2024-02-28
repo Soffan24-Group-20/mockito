@@ -343,6 +343,11 @@ public class MethodsImpl implements IMethods {
     public String oneArray(String[] array) {
         return null;
     }
+    
+    @Override
+    public String oneList(Collection<?> list) {
+        return null;
+    }
 
     public void varargsString(int i, String... string) {}
 
