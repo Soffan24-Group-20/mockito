@@ -175,6 +175,8 @@ public interface IMethods {
 
     String oneArray(Object[] array);
 
+    String oneList(Collection<?> list);
+
     String canThrowException() throws CharacterCodingException;
 
     String oneArray(String[] array);

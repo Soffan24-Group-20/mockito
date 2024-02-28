@@ -344,6 +344,11 @@ public class MethodsImpl implements IMethods {
         return null;
     }
 
+    @Override
+    public String oneList(Collection<?> list) {
+        return null;
+    }
+
     public void varargsString(int i, String... string) {}
 
     public Object varargsObject(int i, Object... object) {

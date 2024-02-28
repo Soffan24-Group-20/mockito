@@ -7,6 +7,7 @@ package org.mockitousage.matchers;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.fail;
 import static org.mockito.AdditionalMatchers.and;
@@ -20,6 +21,7 @@ import static org.mockito.AdditionalMatchers.leq;
 import static org.mockito.AdditionalMatchers.lt;
 import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.AdditionalMatchers.or;
+import static org.mockito.AdditionalMatchers.lao;
 import static org.mockito.ArgumentMatchers.assertArg;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.nullable;
@@ -51,6 +53,7 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.RandomAccess;
 import java.util.regex.Pattern;
@@ -692,5 +695,50 @@ public class MatchersTest extends TestBase {
         }
 
         verify(mock).oneArg("hello");
+    }
+
+    @Test
+    public void should_list_equals_deal_with_null_list() throws Exception {
+        List<?> nullList = null;
+        when(mock.oneList(lao(nullList))).thenReturn("null");
+
+        mock = mock(IMethods.class);
+
+        try {
+            verify(mock).oneList(lao(nullList));
+            fail();
+        } catch (WantedButNotInvoked e) {
+            assertThat(e).hasMessageContaining("oneList(null)");
+        }
+    }
+
+    @Test
+    public void lists_with_same_elements_in_any_order_should_match() {
+        List<Integer> list1 = Arrays.asList(1, 2, 3);
+        List<Integer> list2 = Arrays.asList(3, 2, 1);
+
+        when(mock.oneList(lao(list1))).thenReturn("matched");
+
+        assertEquals("matched", mock.oneList(list2));
+    }
+
+    @Test
+    public void lists_with_different_elements_should_not_match() {
+        List<Integer> list1 = Arrays.asList(1, 2, 3);
+        List<Integer> list2 = Arrays.asList(4, 5, 6);
+
+        when(mock.oneList(lao(list1))).thenReturn("matched");
+
+        assertNotEquals("matched", mock.oneList(list2));
+    }
+
+    @Test
+    public void lists_with_duplicate_elements_should_match_accordingly() {
+        List<String> list1 = Arrays.asList("a", "b", "b", "c");
+        List<String> list2 = Arrays.asList("c", "b", "a", "b");
+
+        when(mock.oneList(lao(list1))).thenReturn("matched");
+
+        assertEquals("matched", mock.oneList(list2));
     }
 }
