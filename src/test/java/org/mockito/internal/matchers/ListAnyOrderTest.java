@@ -86,51 +86,6 @@ public class ListAnyOrderTest extends TestBase {
     }
 
     @Test
-    public void shouldDeepMatchSameElementsDifferentClassesDifferentOrder() {
-        List<Integer> list1 = new ArrayList<>(Arrays.asList(1, 2));
-        List<Short> list2 = new ArrayList<>(List.of((short) 2, (short) 1));
-        ListAnyOrder<Integer> listMatcher = new ListAnyOrder<>(list1);
-
-        assertTrue(listMatcher.deepMatches(list2));
-    }
-
-    @Test
-    public void shouldDeepMatchDifferentElementsDifferentClasses() {
-        List<Integer> list1 = new ArrayList<>(Arrays.asList(1, 2));
-        List<Short> list2 = new ArrayList<>(List.of((short) 2, (short) 3));
-        ListAnyOrder<Integer> listMatcher = new ListAnyOrder<>(list1);
-
-        assertFalse(listMatcher.deepMatches(list2));
-    }
-
-    @Test
-    public void shouldDeepMatchSameElementsMultipleTimes() {
-        List<Integer> list1 = new ArrayList<>(Arrays.asList(1, 2, 2, 3));
-        List<Short> list2 = new ArrayList<>(List.of((short) 2, (short) 1, (short) 3, (short) 2));
-        ListAnyOrder<Integer> listMatcher = new ListAnyOrder<>(list1);
-
-        assertTrue(listMatcher.deepMatches(list2));
-    }
-
-    @Test
-    public void shouldDeepMatchWhenNull() {
-        List<Integer> list1 = new ArrayList<>(Arrays.asList(1, 2, 2, 3));
-        List<Integer> list2 = null;
-        ListAnyOrder<Integer> listMatcher = new ListAnyOrder<>(list1);
-
-        assertFalse(listMatcher.deepMatches(list2));
-    }
-
-    @Test
-    public void shouldDeepMatchSameElementsDifferentClasses() {
-        List<String> list1 = new ArrayList<>(Arrays.asList("a", "b", "c"));
-        List<Character> list2 = new ArrayList<>(Arrays.asList('c', 'b', 'a'));
-        ListAnyOrder<String> listMatcher = new ListAnyOrder<>(list1);
-
-        assertTrue(listMatcher.deepMatches(list2));
-    }
-
-    @Test
     public void shouldReturnToString() {
         List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3));
         ListAnyOrder<Integer> listAnyOrderInteger = new ListAnyOrder<>(list);

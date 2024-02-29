@@ -37,27 +37,6 @@ public class ListAnyOrder<T> implements ArgumentMatcher<Collection<T>>{
         return true;
     }
 
-    public <E> boolean deepMatches(Collection<E> actual) {
-        if (actual == null || expected == null) {
-            return false;
-        }
-
-        if (actual.size() != expected.size()) {
-            return false;
-        }
-        Object[] expectedArray = expected.toArray();
-        Arrays.sort(expectedArray);
-        Object[] actualArray = actual.toArray();
-        Arrays.sort(actualArray);
-
-        for (int i = 0; i < expectedArray.length; i++) {
-            if (!expectedArray[i].toString().equals(actualArray[i].toString())) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     @Override
     public String toString() {
         if (expected == null) {
