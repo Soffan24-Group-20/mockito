@@ -22,7 +22,7 @@ public class NotifiedMethodInvocationReportCoverage {
             if (!file.exists()) {
                 file.createNewFile();
                 BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-                String zeros = "000";
+                String zeros = "00000000000000";
                 writer.write(zeros + "\n");
                 writer.close();
             }
