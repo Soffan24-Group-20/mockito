@@ -296,9 +296,11 @@ public class MethodsImpl implements IMethods {
         return 0;
     }
 
-    public void twoArgumentMethod(int one, int two) {}
+    public void twoArgumentMethod(int one, int two) {
+    }
 
-    public void arrayMethod(String[] strings) {}
+    public void arrayMethod(String[] strings) {
+    }
 
     public String oneArray(boolean[] array) {
         return null;
@@ -343,13 +345,14 @@ public class MethodsImpl implements IMethods {
     public String oneArray(String[] array) {
         return null;
     }
-    
+
     @Override
     public String oneList(Collection<?> list) {
         return null;
     }
 
-    public void varargsString(int i, String... string) {}
+    public void varargsString(int i, String... string) {
+    }
 
     public Object varargsObject(int i, Object... object) {
         return null;
@@ -372,7 +375,8 @@ public class MethodsImpl implements IMethods {
         return null;
     }
 
-    public void mixedVarargs(Object i, String... string) {}
+    public void mixedVarargs(Object i, String... string) {
+    }
 
     public String mixedVarargsReturningString(Object i, String... string) {
         return null;
@@ -396,7 +400,8 @@ public class MethodsImpl implements IMethods {
         return "varargs";
     }
 
-    public void varargsbyte(byte... bytes) {}
+    public void varargsbyte(byte... bytes) {
+    }
 
     public List<String> listReturningMethod(Object... objects) {
         return null;
@@ -410,7 +415,8 @@ public class MethodsImpl implements IMethods {
         return null;
     }
 
-    public void voidMethod() {}
+    public void voidMethod() {
+    }
 
     public String forList(List<String> list) {
         return null;
@@ -464,9 +470,11 @@ public class MethodsImpl implements IMethods {
         return null;
     }
 
-    public void longArg(long longArg) {}
+    public void longArg(long longArg) {
+    }
 
-    public void intArgumentMethod(int i) {}
+    public void intArgumentMethod(int i) {
+    }
 
     public int intArgumentReturningInt(int i) {
         return 0;
@@ -512,22 +520,28 @@ public class MethodsImpl implements IMethods {
     }
 
     @Override
-    public void overloadedMethodWithSameClassNameArguments(java.sql.Date javaDate, Date date) {}
+    public void overloadedMethodWithSameClassNameArguments(java.sql.Date javaDate, Date date) {
+    }
 
     @Override
-    public void overloadedMethodWithSameClassNameArguments(Date date, java.sql.Date javaDate) {}
+    public void overloadedMethodWithSameClassNameArguments(Date date, java.sql.Date javaDate) {
+    }
 
     @Override
-    public void overloadedMethodWithDifferentClassNameArguments(String string, Integer i) {}
+    public void overloadedMethodWithDifferentClassNameArguments(String string, Integer i) {
+    }
 
     @Override
-    public void overloadedMethodWithDifferentClassNameArguments(Integer i, String string) {}
+    public void overloadedMethodWithDifferentClassNameArguments(Integer i, String string) {
+    }
 
     @Override
     public void overloadedMethodWithSameClassNameArguments(
-            java.sql.Date javaDate, String string, Date date) {}
+            java.sql.Date javaDate, String string, Date date) {
+    }
 
     @Override
     public void overloadedMethodWithSameClassNameArguments(
-            Date date, String string, java.sql.Date javaDate) {}
+            Date date, String string, java.sql.Date javaDate) {
+    }
 }

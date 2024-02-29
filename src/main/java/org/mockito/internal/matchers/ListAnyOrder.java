@@ -28,7 +28,7 @@ public class ListAnyOrder<T> implements ArgumentMatcher<Collection<T>>{
         Arrays.sort(expectedArray);
         Object[] actualArray = actual.toArray();
         Arrays.sort(actualArray);
-        
+
         for (int i = 0; i < expectedArray.length; i++) {
             if (!expectedArray[i].equals(actualArray[i])) {
                 return false;
@@ -64,5 +64,5 @@ public class ListAnyOrder<T> implements ArgumentMatcher<Collection<T>>{
             return "null";
         }
         return expected.toString();
-    }    
+    }
 }
