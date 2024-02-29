@@ -71,9 +71,11 @@ public class ListAnyOrderTest extends TestBase {
     public void shouldMatchWhenNull() {
         List<Integer> list1 = new ArrayList<>(Arrays.asList(1, 2, 2, 3));
         List<Integer> list2 = null;
-        ListAnyOrder<Integer> listMatcher = new ListAnyOrder<>(list1);
+        ListAnyOrder<Integer> list1Matcher = new ListAnyOrder<>(list1);
+        ListAnyOrder<Integer> list2Matcher = new ListAnyOrder<>(list2);
 
-        assertFalse(listMatcher.matches(list2));
+        assertFalse(list1Matcher.matches(list2));
+        assertFalse(list2Matcher.matches(list1));
     }
 
     @Test
