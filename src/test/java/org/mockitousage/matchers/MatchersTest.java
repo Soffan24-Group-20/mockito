@@ -712,7 +712,7 @@ public class MatchersTest extends TestBase {
     }
 
     @Test
-    public void listsWithSameElementsInAnyOrderShouldMatch() {
+    public void lists_with_same_elementsIn_any_order_should_match() {
         List<Integer> list1 = Arrays.asList(1, 2, 3);
         List<Integer> list2 = Arrays.asList(3, 2, 1);
 
@@ -722,7 +722,7 @@ public class MatchersTest extends TestBase {
     }
 
     @Test
-    public void listsWithDifferentElementsShouldNotMatch() {
+    public void lists_with_different_elements_should_not_match() {
         List<Integer> list1 = Arrays.asList(1, 2, 3);
         List<Integer> list2 = Arrays.asList(4, 5, 6);
 
@@ -732,7 +732,7 @@ public class MatchersTest extends TestBase {
     }
 
     @Test
-    public void listsWithDuplicateElementsShouldMatchAccordingly() {
+    public void lists_with_duplicate_elements_should_match_accordingly() {
         List<String> list1 = Arrays.asList("a", "b", "b", "c");
         List<String> list2 = Arrays.asList("c", "b", "a", "b");
 
