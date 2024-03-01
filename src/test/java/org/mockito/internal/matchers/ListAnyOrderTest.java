@@ -114,5 +114,4 @@ public class ListAnyOrderTest extends TestBase {
         assertTrue(expectedIntegerString.equals("null"));
         assertTrue(expectedStringString.equals("null"));
     }
-
 }
