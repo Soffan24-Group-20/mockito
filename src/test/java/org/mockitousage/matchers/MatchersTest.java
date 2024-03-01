@@ -352,7 +352,8 @@ public class MatchersTest extends TestBase {
         assertThatThrownBy(
                         () -> {
                             Mockito.verify(list).contains(new Object[] {"1", "2", "3"});
-                        })                .isInstanceOf(ArgumentsAreDifferent.class)
+                        })
+                .isInstanceOf(ArgumentsAreDifferent.class)
                 .hasMessageContainingAll(
                         "Argument(s) are different! Wanted:",
                         "list.contains([\"1\", \"2\", \"3\"]);",
