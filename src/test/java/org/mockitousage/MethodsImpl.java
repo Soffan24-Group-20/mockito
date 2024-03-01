@@ -529,6 +529,5 @@ public class MethodsImpl implements IMethods {
 
     @Override
     public void overloadedMethodWithSameClassNameArguments(
-            Date date, String string, java.sql.Date javaDate) {
-    }
+            Date date, String string, java.sql.Date javaDate) {}
 }
